@@ -1,6 +1,7 @@
 from unittest import TestCase
 from unittest.mock import patch
 from src.calculator import Calculator
+from src.db_helper import DbHelper
 
 class TestCalculator(TestCase):
     def setUp(self):
@@ -10,6 +11,7 @@ class TestCalculator(TestCase):
         calculator = Calculator()
         actual = calculator.sum(2, 4)
         self.assertEqual(6, actual)
+        
 
     @patch('src.calculator.Calculator')
     def test_sum_with_mocking(self, MockCalculator):
@@ -31,3 +33,14 @@ class TestCalculator(TestCase):
         actual = calculator.sum(1, 1)
         expected = 10
         self.assertEqual(expected, actual)
+        
+class TestDbHelper(TestCase):
+    def setUp(self):
+        self.dbhelper = DbHelper()
+        
+    def test_max_salary_is_greater_than_min_salary(self):
+        tdh = TestDbHelper()
+        max = tdh.get_maximun_salary()
+        min = tdh.get_minimum_salary()
+        diff = max - min
+        self.assertGreater(max, min)
